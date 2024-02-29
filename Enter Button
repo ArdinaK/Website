@@ -1,0 +1,28 @@
+import javax.swing.*;
+import java.awt.event.*;
+
+public class EnterButtonExample extends JFrame {
+    private JTextField textField;
+    
+    public EnterButtonExample() {
+        setTitle("Enter Button Example");
+        setSize(300, 200);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        textField = new JTextField();
+        textField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Perform action here when Enter is pressed
+                System.out.println("Enter pressed, text entered: " + textField.getText());
+            }
+        });
+        
+        getContentPane().add(textField);
+        
+        setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        new EnterButtonExample();
+    }
+}
