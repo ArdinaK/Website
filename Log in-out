@@ -1,0 +1,29 @@
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        // Check if username and password are valid (e.g., validate against a database)
+        boolean isValidUser = YourAuthenticationService.authenticate(username, password);
+        
+        if (isValidUser) {
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+            response.sendRedirect("welcome.jsp");
+        } else {
+            response.sendRedirect("login.jsp?error=invalid");
+        }
+    }
+}
+
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.sendRedirect("login.jsp");
+    }
+}
